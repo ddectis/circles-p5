@@ -1,31 +1,20 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-import Link from 'next/link';
-import LessonContents from '../components/lesson-contents'
 import Layout from '../components/layout'
-import React, { useState } from 'react';
+import React from 'react';
+
 
 export default function Home() {
   
-  const [isSideBarOpen, setIsSidebarOpen] = useState(false);
-
-  const toggleSidebar = () =>{
-    console.log("click");  
-    setIsSidebarOpen(!isSideBarOpen);
-    const sidebar = document.getElementById("sidebar");
-    sidebar.classList.toggle("is-hidden")
-  }
-
   return (
     <div className={styles.container}>
       <Head>
           <title>Create Nextf App</title>
           
       </Head>
-      <Layout 
-        isOpen={isSideBarOpen}
-      />
-      <button className={styles.toggleSidebarButton} onClick={toggleSidebar}>|||</button>
+      <Layout />
+
+      
       <main>
         <h1 className={styles.title}>
         

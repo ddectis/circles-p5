@@ -8,18 +8,13 @@ export default function LessonContents(props) {
 
     const router = useRouter();
 
-    useEffect(()=>{
-        console.log("ye");
-        const sidebar = document.getElementById("sidebar");
-        const isHiddenClass = styles.isHidden;
-        sidebar.classList.toggle(isHiddenClass)
-    },[props.isOpen])
-
     const handleClick = (e) => {
         e.preventDefault();
-        console.log("click");
+        console.log("lesson click on sidebar");
         console.log(e);
-        router.push(e.target.href, { replace: true });
+        props.toggleSidebar();
+        router.push(e.target.href, { replace: false });
+        
     }
 
     
@@ -33,7 +28,7 @@ export default function LessonContents(props) {
                 <li>Introduction</li>
                 <ul>
                     <li><Link href="/lessons/01-introduction/AnyoneCanPlay" onClick={handleClick}>Anyone can learn to Play</Link></li>
-                    <li><Link href="/lessons/01-introduction/Glossary">Glossary of Terms</Link></li>
+                    <li><Link href="/lessons/01-introduction/Glossary" onClick={handleClick}>Glossary of Terms</Link></li>
                 </ul>
                 <li>Intervals</li>
                 <ul>
