@@ -1,17 +1,34 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
+import Link from 'next/link';
+import LessonContents from '../components/lesson-contents'
+import Layout from '../components/layout'
+import React, { useState } from 'react';
 
 export default function Home() {
+  
+  const [isSideBarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () =>{
+    console.log("click");  
+    setIsSidebarOpen(!isSideBarOpen);
+    const sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle("is-hidden")
+  }
+
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+          <title>Create Nextf App</title>
+          
       </Head>
-
+      <Layout 
+        isOpen={isSideBarOpen}
+      />
+      <button className={styles.toggleSidebarButton} onClick={toggleSidebar}>|||</button>
       <main>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+        
         </h1>
 
         <p className={styles.description}>

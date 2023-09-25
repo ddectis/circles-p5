@@ -1,0 +1,42 @@
+.contents{
+    background: #212121;
+    color: #dddddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    transition: left 0.3s ease-in-out
+}
+
+.isHidden{
+    left: -400px;
+}
+
+.contents li{
+    margin:5px;
+    font-size: 2em;
+    
+}
+
+.contents ul{
+    font-size: 0.8em;
+    padding: 10px;
+}
+
+.contents a{
+    color: unset;
+}
+
+.toggleSidebarButton{
+    position: fixed;
+    left: 40%;
+    top: 1%;
+    color: black;
+    font-size: 3em;
+    border: 1px solid;
+    padding-inline: 20px;
+    padding-bottom: 10px;
+}
