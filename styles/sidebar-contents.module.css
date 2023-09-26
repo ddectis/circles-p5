@@ -34,14 +34,39 @@
 }
 
 .contents li{
-    margin:5px;
-    font-size: 2em;
+    margin:0;
     
+    padding: 0;
+    
+}
+
+.contents_container{
+    width: 100%;
+}
+
+.contents button{
+    border-radius: 5px;
+    font-size:1em;
+    background-color: unset;
+    color: unset;
+    border:1px solid rgba(255, 255, 255, 0.105);
+    margin: 0;
+    padding:15px
+}
+
+.contents button:hover,
+.contents button:focus,
+.contents button:active{
+    text-decoration: underline;
+  border: 1px solid;
+  border-radius: 5px;
+  font-weight: bold;
 }
 
 .contents ul{
     font-size: 0.8em;
-    padding: 10px;
+    padding:0;
+    
 }
 
 .contents a{
@@ -63,7 +88,21 @@
 .program_heading{
     font-weight: bold;
     background: #5f9ea063;
-    padding-inline: 5px;
+    padding-inline-start: 15px;
+    padding-block: 10px;
+}
+
+.lesson_button{
+    width: 100%;
+    padding:5px;
+    text-align: right;
+}
+
+.contents_heading{
+    padding-inline-start: 25px;
+    margin:0;
+    padding-block: 10px;
+    font-size: 1.5em;
 }
 
 @media (min-height: 100vh){

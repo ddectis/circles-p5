@@ -47,12 +47,12 @@ ul li{
   text-align: right;
 }
 
-ul li:hover,
+/* ul li:hover,
 ul li:focus,
 ul li:active{
   text-decoration: underline;
   border: 1px solid;
   border-radius: 5px;
   font-weight: bold;
-}
+} */
 

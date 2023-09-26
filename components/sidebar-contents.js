@@ -22,28 +22,28 @@ export default function SidebarContents(props) {
         <div className={styles.contents} id="sidebar">
   
             <h2>Program Contents</h2>
-            <ol>
-                <li className={styles.program_heading}>Introduction</li>
+            <ol className={styles.contents_container}>
+                <li className={styles.program_heading}><h3 className={styles.contents_heading}>Introduction</h3></li>
                 <ul>
-                    <li><Link href="/lessons/01-introduction/anyone-can-play" onClick={handleClick}>Anyone can learn to Play</Link></li>
-                    <li><Link href="/lessons/01-introduction/inner-ear-intro" onClick={handleClick}>Find Your Inner Ear</Link></li>
-                    <li><Link href="/lessons/01-introduction/glossary" onClick={handleClick}>Glossary of Terms</Link></li>
-                    <li><Link href="/midi-scratch" onClick={handleClick}>MIDI!</Link></li>
+                    <li><button className={styles.lesson_button}><Link href="/lessons/01-introduction/anyone-can-play" onClick={handleClick}>Anyone can learn to Play</Link></button></li>
+                    <li><button className={styles.lesson_button}><Link href="/lessons/01-introduction/inner-ear-intro" onClick={handleClick}>Find Your Inner Ear</Link></button></li>
+                    <li><button className={styles.lesson_button}><Link href="/lessons/01-introduction/glossary" onClick={handleClick}>Glossary of Terms</Link></button></li>
+                    <li><button className={styles.lesson_button}><Link href="/midi-scratch" onClick={handleClick}>MIDI!</Link></button></li>
                 </ul>
-                <li className={styles.program_heading}>Intervals</li>
+                <li className={styles.program_heading}><h3 className={styles.contents_heading}>Intervals</h3></li>
                 <ul>
                     <li>What is an interval?</li>
                     <li>The pattern of an Octave</li>
                     <li>Challenge: Ear Training</li>
                 </ul>
-                <li className={styles.program_heading}>Scale Construction</li>
+                <li className={styles.program_heading}><h3 className={styles.contents_heading}>Scale Construction</h3></li>
                 <ul>
                     <li>Intro to Scales</li>
                     <li>Major Pattern</li>
                     <li>Minor Pattern</li>
                     <li>Challenge: Scale Drill</li>
                 </ul>
-                <li className={styles.program_heading}>Chord Construction</li>
+                <li className={styles.program_heading}><h3 className={styles.contents_heading}>Chord Construction</h3></li>
                 <ul>
                     <li>Intro to Triads</li>
                     <li>Major Chord</li>
