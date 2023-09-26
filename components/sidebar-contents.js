@@ -28,6 +28,7 @@ export default function SidebarContents(props) {
                     <li><Link href="/lessons/01-introduction/anyone-can-play" onClick={handleClick}>Anyone can learn to Play</Link></li>
                     <li><Link href="/lessons/01-introduction/inner-ear-intro" onClick={handleClick}>Find Your Inner Ear</Link></li>
                     <li><Link href="/lessons/01-introduction/glossary" onClick={handleClick}>Glossary of Terms</Link></li>
+                    <li><Link href="/midi-scratch" onClick={handleClick}>MIDI!</Link></li>
                 </ul>
                 <li className={styles.program_heading}>Intervals</li>
                 <ul>
