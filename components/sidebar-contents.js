@@ -25,10 +25,38 @@ export default function SidebarContents(props) {
             <ol className={styles.contents_container}>
                 <li className={styles.program_heading}><h3 className={styles.contents_heading}>Introduction</h3></li>
                 <ul>
-                    <li><button className={styles.lesson_button}><Link href="/lessons/01-introduction/anyone-can-play" onClick={handleClick}>Anyone can learn to Play</Link></button></li>
-                    <li><button className={styles.lesson_button}><Link href="/lessons/01-introduction/inner-ear-intro" onClick={handleClick}>Find Your Inner Ear</Link></button></li>
-                    <li><button className={styles.lesson_button}><Link href="/lessons/01-introduction/glossary" onClick={handleClick}>Glossary of Terms</Link></button></li>
-                    <li><button className={styles.lesson_button}><Link href="/midi-scratch" onClick={handleClick}>MIDI!</Link></button></li>
+                    <li>
+                        <Link 
+                            href="/lessons/01-introduction/anyone-can-play" 
+                            onClick={handleClick}
+                            className={styles.contents_link}>
+                                Anyone can learn to Play
+                        </Link>
+                    </li>
+                    <li>
+                        <Link 
+                            href="/lessons/01-introduction/inner-ear-intro" 
+                            onClick={handleClick}
+                            className={styles.contents_link}>
+                                Find Your Inner Ear
+                        </Link>
+                    </li>
+                    <li>
+                        <Link 
+                            href="/lessons/01-introduction/glossary" 
+                            onClick={handleClick}
+                            className={styles.contents_link}>
+                                Glossary of Terms
+                        </Link>
+                    </li>
+                    <li>
+                        <Link 
+                            href="/midi-scratch"
+                            onClick={handleClick}
+                            className={styles.contents_link}>
+                                MIDI!
+                        </Link>
+                    </li>
                 </ul>
                 <li className={styles.program_heading}><h3 className={styles.contents_heading}>Intervals</h3></li>
                 <ul>

@@ -1,5 +1,5 @@
-import Layout from '../../../components/layout';
-import styles from '../../../styles/lesson-template.module.css';
+import Layout from '../components/layout';
+import styles from '../styles/lesson-template.module.css';
 
 export default function Template(props) {
 
