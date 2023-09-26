@@ -1,4 +1,4 @@
-import styles from '../styles/SidebarButton.module.css';
+import styles from '../styles/sidebar-button.module.css';
 
 
 export default function SidebarButton(props){

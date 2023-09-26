@@ -1,15 +1,14 @@
 ﻿import sidebarStyles from '../styles/sidebar-contents.module.css';
 import lessonStyles from '../styles/lesson-template.module.css'
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import SidebarContents from './sidebar-contents'
-import SidebarButton from './sidebar-button';
 import SidebarBackground from './sidebar-background';
+import GoBackToContents from '/components/go-back-to-contents';
+import SidebarButton from './sidebar-button';
 
 export default function Layout(props) {
 
-    const router = useRouter();
-    const [isSideBarOpen, setIsSidebarOpen] = useState(false);
+    const [isSideBarOpen, setIsSidebarOpen] = useState(true);
 
     useEffect(()=>{
         console.log("ReRendering Sidebar");
@@ -40,12 +39,12 @@ export default function Layout(props) {
                 />
             </div>
             <div>
-                <SidebarButton 
+                <SidebarButton
                     toggleSidebar={toggleSidebar}
                 />
-                
             </div>
             {props.children}
+            <GoBackToContents/>
         </div>
         
         )
