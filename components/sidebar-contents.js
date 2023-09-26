@@ -1,10 +1,10 @@
 ﻿
 import Link from 'next/link';
-import styles from '../styles/lesson-contents.module.css';
+import styles from '../styles/sidebar-contents.module.css';
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-export default function LessonContents(props) {
+export default function SidebarContents(props) {
 
     const router = useRouter();
 
@@ -16,7 +16,6 @@ export default function LessonContents(props) {
         router.push(e.target.href, { replace: false });
         
     }
-
     
     //voice leading challenge Improve these selections of chord voicing with Voice Leading
 
@@ -27,8 +26,9 @@ export default function LessonContents(props) {
             <ol>
                 <li>Introduction</li>
                 <ul>
-                    <li><Link href="/lessons/01-introduction/AnyoneCanPlay" onClick={handleClick}>Anyone can learn to Play</Link></li>
-                    <li><Link href="/lessons/01-introduction/Glossary" onClick={handleClick}>Glossary of Terms</Link></li>
+                    <li><Link href="/lessons/01-introduction/anyone-can-play" onClick={handleClick}>Anyone can learn to Play</Link></li>
+                    <li><Link href="/lessons/01-introduction/inner-ear-intro" onClick={handleClick}>Find Your Inner Ear</Link></li>
+                    <li><Link href="/lessons/01-introduction/glossary" onClick={handleClick}>Glossary of Terms</Link></li>
                 </ul>
                 <li>Intervals</li>
                 <ul>

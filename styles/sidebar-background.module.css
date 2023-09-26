@@ -1,0 +1,10 @@
+.clickTarget{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: rgba(114, 114, 114, 0.6);
+}
+
+.isHidden{
+    display: none;
+}

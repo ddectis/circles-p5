@@ -1,11 +1,10 @@
-﻿
-import Link from 'next/link';
-import styles from '../styles/lesson-contents.module.css';
+﻿import sidebarStyles from '../styles/sidebar-contents.module.css';
+import lessonStyles from '../styles/lesson-template.module.css'
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import LessonContents from '../components/lesson-contents'
-import SidebarButon from './sidebar-button';
-
+import SidebarContents from './sidebar-contents'
+import SidebarButton from './sidebar-button';
+import SidebarBackground from './sidebar-background';
 
 export default function Layout(props) {
 
@@ -15,7 +14,7 @@ export default function Layout(props) {
     useEffect(()=>{
         console.log("ReRendering Sidebar");
         const sidebar = document.getElementById("sidebar");
-        const isHiddenClass = styles.isHidden;
+        const isHiddenClass = sidebarStyles.isHidden;
         sidebar.classList.toggle(isHiddenClass)
     },[isSideBarOpen])
 
@@ -30,18 +29,23 @@ export default function Layout(props) {
     //voice leading challenge Improve these selections of chord voicing with Voice Leading
 
     return (
-        <div>
+        <div className={lessonStyles.lesson_container}>
             <div>
-                <LessonContents
+                <SidebarContents
+                    toggleSidebar={toggleSidebar}
+
+                />
+                <SidebarBackground
                     toggleSidebar={toggleSidebar}
                 />
             </div>
             <div>
-                <SidebarButon 
+                <SidebarButton 
                     toggleSidebar={toggleSidebar}
                 />
-                {props.children}
+                
             </div>
+            {props.children}
         </div>
         
         )

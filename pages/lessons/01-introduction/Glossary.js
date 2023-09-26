@@ -1,7 +1,7 @@
 ﻿import Link from 'next/link';
-import GoBackToContents from '../../../components/GoBackToContents';
+import GoBackToContents from '../../../components/go-back-to-contents';
 import Layout from '../../../components/layout';
-import styles from '../../../styles/lesson.module.css';
+import styles from '../../../styles/lesson-template.module.css';
 
 export default function Glossary(props) {
 
