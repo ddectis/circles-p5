@@ -1,0 +1,356 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
+
+/*
+------------------------------------------------------------------------------------------------------------------------
+Variables.
+*/
+
+:root {
+
+	--body-fg: #eee;
+	--body-bg: #111;
+
+	--select-fg: #fff;
+	--select-bg: #747;
+
+	--button-bg: #414;
+	--button-fg: #eee;
+	--button-border: 1px solid #fff5;
+	--button-shadow: 0 0 1rem #000;
+
+	--key-white-fg: #111;
+	--key-white-bg: #eee;
+
+	--key-black-fg: #eee;
+	--key-black-bg: #111;
+
+	--key-height-white: 25vh;
+	--key-height-black: .5;
+
+	--key-width-white: 3rem;
+	--key-width-black: 2rem;
+	--key-width: calc(var(--key-width-white) - var(--key-width-black));
+
+	--key-spacing: 1px;
+
+	--font-family: 'Dosis', sans-serif;
+	--font-size: 1rem;
+
+	--spacing: .5rem;
+}
+
+/*
+------------------------------------------------------------------------------------------------------------------------
+Reset.
+*/
+
+* {
+
+	color: inherit;
+	background: none;
+	border: none;
+	outline: none;
+
+	cursor: default;
+	user-select: none;
+
+	font-family: inherit;
+	font-size: inherit;
+	font-style: inherit;
+	font-weight: inherit;
+
+	text-align: inherit;
+	text-shadow: inherit;
+	list-style-type: none;
+
+	box-sizing: border-box;
+
+	margin: 0;
+	padding: 0;
+}
+
+html,
+body {
+
+	touch-action: none;
+
+	width: 100%;
+	height: 100%;
+
+	overflow: hidden;
+}
+
+/*
+------------------------------------------------------------------------------------------------------------------------
+Body / typography.
+*/
+
+body {
+
+	color: var(--body-fg);
+	background: var(--body-bg);
+
+	font-family: var(--font-family);
+	font-size: var(--font-size);
+
+	display: flex;
+	flex-direction: column;
+}
+
+main {
+
+	flex: 1;
+}
+
+/*
+------------------------------------------------------------------------------------------------------------------------
+Button.
+*/
+
+button { cursor: pointer; }
+button * { pointer-events: none; }
+
+/*
+------------------------------------------------------------------------------------------------------------------------
+Menubar.
+*/
+
+[role="menubar"] {
+
+	box-shadow: var(--button-shadow);
+
+	display: flex;
+	align-items: center;
+
+	padding: var(--spacing);
+}
+
+[role="menubar"] button {
+
+	color: var(--button-fg);
+	background: var(--button-bg);
+	border: var(--button-border);
+	box-shadow: var(--button-shadow);
+
+	
+
+	padding: var(--spacing);
+}
+
+[role="menubar"] button:active {
+
+	box-shadow: none;
+
+	position: relative;
+	top: calc(var(--spacing) * .5);
+	left: calc(var(--spacing) * .5);
+}
+
+/*
+------------------------------------------------------------------------------------------------------------------------
+Dialog.
+*/
+
+dialog[open] {
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+
+	width: 100%;
+	height: 100%;
+
+	z-index: 10;
+}
+
+dialog section {
+
+	border: var(--button-border);
+	box-shadow: var(--button-shadow);
+}
+
+/*
+------------------------------------------------------------------------------------------------------------------------
+Section.
+*/
+
+section > * {
+
+	color: var(--body-fg);
+	background: var(--body-bg);
+
+	padding: var(--spacing);
+}
+
+header {
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+footer {
+
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+/*
+------------------------------------------------------------------------------------------------------------------------
+Table.
+*/
+
+table {
+
+	border-collapse: collapse;
+	text-align: left;
+}
+
+th, td {
+
+	border: 1px solid #000;
+
+	padding: var(--spacing);
+}
+
+
+/*
+------------------------------------------------------------------------------------------------------------------------
+OSK.
+*/
+
+#osk {
+
+	box-shadow: var(--button-shadow);
+}
+
+/*
+Keyboard.
+*/
+
+#osk ul {
+
+	height: var(--key-height-white);
+
+	position: relative;
+	overflow: auto;
+}
+
+/*
+Layer.
+*/
+
+#osk li {
+
+	display: flex;
+	align-items: flex-start;
+	gap: var(--key-spacing);
+
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	width: 100%;
+	height: 100%;
+}
+
+/*
+Keys.
+*/
+
+#osk li button {
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+
+	flex: 0 0 var(--key-width-white);
+	height: 100%;
+
+	overflow: hidden;
+	padding-bottom: var(--spacing);
+}
+
+/*
+White keys.
+*/
+
+#osk li:first-child button {
+
+	color: var(--key-white-fg);
+	background: var(--key-white-bg);
+}
+
+/*
+Black keys.
+*/
+
+#osk li:last-child { height: calc(var(--key-height-white) * var(--key-height-black)); }
+
+#osk li:last-child button {
+
+	color: var(--key-black-fg);
+	background: var(--key-black-bg);
+	border-bottom-left-radius: var(--spacing);
+	border-bottom-right-radius: var(--spacing);
+
+	flex: 0 0 var(--key-width-black);
+ 
+	margin-left: var(--key-width);
+
+	transform: translateX(-50%);
+}
+
+/*
+OMG trying to do this recursively with n is fucking hard. Imma just hard code enough of em.
+*/
+
+#osk li:last-child button:nth-of-type(1) {
+
+	margin-left: calc(var(--key-width-white) + var(--key-spacing));
+}
+
+/*
++3, +2, +3, +2, +3, +2
+*/
+#osk li:last-child button:nth-of-type(3),
+#osk li:last-child button:nth-of-type(6),
+
+#osk li:last-child button:nth-of-type(8),
+#osk li:last-child button:nth-of-type(11),
+
+#osk li:last-child button:nth-of-type(13),
+#osk li:last-child button:nth-of-type(16),
+
+#osk li:last-child button:nth-of-type(18),
+#osk li:last-child button:nth-of-type(21),
+
+#osk li:last-child button:nth-of-type(23),
+#osk li:last-child button:nth-of-type(26),
+
+#osk li:last-child button:nth-of-type(28),
+#osk li:last-child button:nth-of-type(31),
+
+#osk li:last-child button:nth-of-type(33),
+#osk li:last-child button:nth-of-type(36),
+
+#osk li:last-child button:nth-of-type(38),
+#osk li:last-child button:nth-of-type(41) {
+
+	margin-left: calc(var(--key-width) + var(--key-spacing) + (var(--key-width-white)));
+}
+
+/* Pressed button (via mouse or MIDI keyboard). */
+
+#osk li button:active,
+#osk li button[aria-selected="true"] {
+
+	color: var(--select-fg);
+	background: var(--select-bg);
+}
