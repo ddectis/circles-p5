@@ -15,9 +15,9 @@ export default function Home() {
       <Layout />
 
       
-      <main>
+      <main className={styles.hide}>
         <h1 className={styles.title}>
-        
+          Music
         </h1>
 
         <p className={styles.description}>

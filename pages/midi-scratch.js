@@ -8,7 +8,7 @@ export default function MidiScratch(props) {
 
     return (
         <Layout>
-             <body>
+             {/* <body>
                 <header role="menubar">
                     <button type="button" data-event="click:openDevicesDialog;click:scanDevices">MIDI Devices</button>
                 </header>
@@ -96,6 +96,7 @@ export default function MidiScratch(props) {
                     </section>
                 </dialog>
             </body>
+            <Midi/> */}
         </Layout>
         
         

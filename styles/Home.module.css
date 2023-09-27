@@ -89,6 +89,10 @@
   padding: 20px;
 }
 
+.hide{
+  display: none !important; 
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;
