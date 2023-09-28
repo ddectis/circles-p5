@@ -5,71 +5,124 @@ import React from "react";
 import { NextReactP5Wrapper } from "@p5-wrapper/next";
 
 export default function Template(props) {
-    let pg;
-    let mouseX;
-    let slider;
-    
 
-    const sketch = p5 => {
+    const circles = p5 => {
+        
         p5.setup = () => {
-            p5.createCanvas(710, 400, p5.WEBGL);
-            pg = p5.createGraphics(400,250);
-            slider = p5.createSlider(0,255,127);
+            p5.createCanvas(720, 150);
+            p5.noStroke();
+            p5.noLoop();
         } 
     
         p5.draw = () => {
-            // p5.background(25);
-            // p5.normalMaterial();
-            // p5.push();
-            // p5.rotateZ(p5.frameCount * 0.001);
-            // p5.rotateX(p5.frameCount * 0.01);
-            // p5.rotateY(p5.frameCount * 0.01);
-            // p5.torus(10);
-            // p5.box(15);
-            mouseX = p5.mouseX;
-            // p5.pop();
-
-            
-
-            // p5.translate(240, 0, 0);
-            // p5.push();
-            // p5.rotateZ(p5.frameCount * 0.01);
-            // p5.rotateX(p5.frameCount * 0.01);
-            // p5.rotateY(p5.frameCount * 0.01);
-            // p5.box(7, 70, 7);
-            // p5.pop();
-            
-            // p5.noStroke();
-            // p5.translate(-300,-300,0)
-            // for(let i = 0; i < p5.height; i += 50){
-            //     p5.fill(12,206,15);
-            //     p5.rect(0, i, p5.width, 40);
-            //     p5.fill(255);
-            //     p5.rect(i, 0, 40, p5.height);
-            // }
-            p5.mousePressed = () => {
-                console.log("yo")
-            }
-
-            p5.fill (0, 12)
-            p5.rect(0,0,p5.width,p5.height);
-            p5.fill(255);
-            p5.noStroke();
-            p5.ellipse(p5.mouseX, p5.mouseY, 60, 60);
-
-
-
-            
-            //console.log(mouseX);
+            p5.drawCircle(p5.width / 2, 350, 6);
 
         };
+
+        p5.drawCircle = (x, radius, level) => {
+            const tt = (126 * level) / 4;
+            p5.fill(tt, 0, 200);
+            p5.ellipse(x, p5.height / 2, radius * 2, radius * 2);
+            if (level > 1){
+                level -= 1;
+                p5.drawCircle(x - radius / 2, radius / 2, level);
+                p5.drawCircle(x + radius / 2, radius / 2, level);
+            }
+        }
     };
+
+    const triangles = p5 =>{
+        
+        let firstStyle = true;
+        let firstPointLow = true; //used when the triangle is pointed upwards i.e the first point of the triangle is lower than the 2nd point
+        let column = 0;
+        let maxColumns = 30
+        let row = 0;
+        let maxRows = 40;
+        let startingHeight = 200;
+        let startingWidth = 200;
+        let startingX = -startingWidth / 2;
+        let startingY = startingHeight;
+        let strokeWidth = startingHeight / 10;
+        if (strokeWidth > 10){
+            strokeWidth = 10;
+        }
+
+        p5.setup = () => {
+            p5.createCanvas(800,720);
+            p5.background(0,0,0);
+            
+        }
+
+        p5.draw = () =>{
+            //p5.push();
+            const firstFill = p5.color(100,0,100,200);
+            const secondFill = p5.color(0,100,100,200);
+            const initialX = startingX;
+            const initialY = startingY;
+            const triangleHeight = startingHeight; 
+            const triangleWidth = startingWidth;
+            p5.drawTriangle(firstFill, secondFill, initialX, initialY, triangleHeight,triangleWidth);
+            
+                        
+        }
+
+        p5.drawTriangle = (firstFill, secondFill, initialX, initialY, triangleHeight, triangleWidth) =>{
+            let posHeight = triangleHeight;
+            let negHeight = -triangleHeight;
+            console.log(posHeight)
+
+            if (column <= maxColumns){
+                if (firstStyle){
+                    p5.fill(firstFill);
+                } else {
+                    p5.fill(secondFill);
+                }
+                if (firstPointLow){
+                    triangleHeight = negHeight
+                } else {
+                    triangleHeight = posHeight;
+                }
+                p5.strokeWeight(strokeWidth);
+                
+                let secondPointX = initialX + 0.5 * triangleWidth;
+                let secondPointY = initialY + triangleHeight;
+                let thirdPointX = initialX + triangleWidth;
+                let thirdPointY = initialY;
+                p5.triangle(initialX,initialY,secondPointX,secondPointY,thirdPointX,thirdPointY)
+                let nextInitialX = secondPointX;
+                let nextInitialY = secondPointY;
+                
+                column++;
+                firstStyle = !firstStyle;
+                
+                p5.drawTriangle(firstFill,secondFill,nextInitialX,nextInitialY,triangleHeight,triangleWidth)
+
+            } else {
+                if (row < maxRows){
+                    let nextInitialX = startingX;
+                    let nextInitialY = initialY
+                    if (firstPointLow){
+                        nextInitialY += startingHeight
+                    } else {
+                        nextInitialY += startingHeight;
+                    }
+                    row++;
+                    column = 0
+                    
+                    firstPointLow != firstPointLow;
+                    p5.drawTriangle(firstFill,secondFill,nextInitialX,nextInitialY,triangleHeight,triangleWidth)
+                }
+            }
+        }
+    }
 
     return (
         <Layout>
-            <div className={styles.lesson_content}>
-                <p>Hello {mouseX}</p>
-                <NextReactP5Wrapper sketch={sketch} />;
+            <div className={styles.p5_sketch}>
+                
+                <NextReactP5Wrapper sketch={circles} />;
+                <NextReactP5Wrapper sketch={triangles} />;
             </div>
         </Layout>
         
