@@ -39,38 +39,62 @@ export default function Template(props) {
         let maxColumns = 30
         let row = 0;
         let maxRows = 40;
-        let startingHeight = 200;
-        let startingWidth = 200;
-        let startingX = -startingWidth / 2;
+        let startingHeight = 100;               //these are the inputs
+        let startingWidth = 100;                //right here
+        let startingX = -startingWidth / 2;     //these values are calculated
         let startingY = startingHeight;
         let strokeWidth = startingHeight / 10;
         if (strokeWidth > 10){
             strokeWidth = 10;
         }
+        
 
         p5.setup = () => {
-            p5.createCanvas(800,720);
+            p5.createCanvas(800,700);
             p5.background(0,0,0);
-            
-        }
-
-        p5.draw = () =>{
-            //p5.push();
-            const firstFill = p5.color(100,0,100,200);
-            const secondFill = p5.color(0,100,100,200);
-            const initialX = startingX;
-            const initialY = startingY;
-            const triangleHeight = startingHeight; 
-            const triangleWidth = startingWidth;
-            p5.drawTriangle(firstFill, secondFill, initialX, initialY, triangleHeight,triangleWidth);
+            p5.slider = p5.createSlider(25,200,100);
+            p5.slider.position(100,500)
+            p5.slider.style('width', '800px')
+            p5.slider.input(p5.valuechanged);
+            //p5.valuechanged;
+            //p5.noLoop();
             
                         
         }
 
+        p5.valuechanged = () =>{
+            console.log(p5.slider.value())
+            
+            console.log(startingHeight);
+            p5.clear();
+            p5.redraw();
+        }
+
+        p5.draw = () =>{
+            //p5.push();
+            console.log("drawing");
+            startingHeight = p5.slider.value();
+            const firstFill = p5.color(100,0,100,250);
+            const secondFill = p5.color(0,100,100,250);
+            const initialX = startingX;
+            const initialY = startingY;
+            const triangleHeight = startingHeight; 
+            const triangleWidth = startingWidth;
+            
+            p5.drawTriangle(firstFill, secondFill, initialX, initialY, triangleHeight,triangleWidth);
+           
+            p5.push();
+            
+            
+                        
+        }
+
+        
+
         p5.drawTriangle = (firstFill, secondFill, initialX, initialY, triangleHeight, triangleWidth) =>{
             let posHeight = triangleHeight;
             let negHeight = -triangleHeight;
-            console.log(posHeight)
+            
 
             if (column <= maxColumns){
                 if (firstStyle){
@@ -117,12 +141,67 @@ export default function Template(props) {
         }
     }
 
+    const circleChase = c =>{
+        
+        let 
+            rndR = 50, 
+            counter = 0,
+            counterThreshold = 100,
+            upOrDown = 1;
+
+        c.setup = () =>{
+            c.createCanvas(c.windowWidth,c.windowHeight);
+            c.background(21)
+        }
+
+        c.draw = () => {
+            
+            
+            c.fill(0,rndR * 0.75,rndR * 0.5)
+            c.strokeWeight(1)
+            let halfWidth = c.width / 2;
+            let halfHeight = c.height / 2;
+            let xOffset = Math.abs(c.mouseX - halfWidth);
+            let yOffset = Math.abs(c.mouseY - halfHeight);
+            let radius = yOffset + xOffset / 1000
+            c.circle(c.mouseX, c.mouseY, radius);
+        }
+
+        c.mouseMoved = () => {
+            counter++;
+            if (counter > counterThreshold){
+                upOrDown = Math.floor(Math.random() * 2)
+                counter = 0;
+                console.log(upOrDown)
+            }
+            if (upOrDown === 1){
+                if (rndR < 255){
+                    rndR += 2
+                } else {
+                    rndR = 255
+                    upOrDown = 0;
+                }
+                
+            } 
+            if (upOrDown === 0){
+                if (rndR > 0){
+                    rndR -= 1;
+                } else {
+                    rndR = 0;
+                    upOrDown = 1;
+                }
+                
+            }
+        }
+    }
+
     return (
         <Layout>
             <div className={styles.p5_sketch}>
                 
-                <NextReactP5Wrapper sketch={circles} />;
-                <NextReactP5Wrapper sketch={triangles} />;
+                {/* <NextReactP5Wrapper sketch={circles} />; */}
+                {/* <NextReactP5Wrapper sketch={triangles} />; */}
+                <NextReactP5Wrapper sketch={circleChase} />;
             </div>
         </Layout>
         
