@@ -150,32 +150,48 @@ export default function Template(props) {
             increaseG = false,
             increaseB = false,
             initialMouseMovement = false,
-            smoothedSpeed = 0,
-            smoothingFactor = 0.2;
+            lockR = false,
+            lockG = false,
+            lockB = false;
 
 
         c.setup = () =>{
             c.createCanvas(c.windowWidth,0.75 * c.windowHeight);
             c.background(21)
             let uiStart = 0.80 * c.windowHeight;
-            console.log(uiStart);
+            let sliderWidth = c.windowWidth * 0.33;
+            let margin = 25;
+
+            //console.log(uiStart);
             c.rSlider = c.createSlider(0,255,rndR);
             c.rSlider.position(10,uiStart);
-            c.rSlider.style('width','250px')
+            c.rSlider.style('width', sliderWidth + 'px')
             c.rSlider.input(c.rValueChanged);
 
             c.gSlider = c.createSlider(0,255,rndG);
             c.gSlider.position(10,uiStart + 40);
-            c.gSlider.style('width','250px')
+            c.gSlider.style('width', sliderWidth + 'px')
             c.gSlider.input(c.gValueChanged);
 
             c.bSlider = c.createSlider(0,255,rndB);
             c.bSlider.position(10,uiStart + 80);
-            c.bSlider.style('width','250px')
+            c.bSlider.style('width', sliderWidth + 'px')
             c.bSlider.input(c.bValueChanged);
             c.textSize(25);
             c.fill(255)
-            c.text('word', 100, 1200);
+            c.text('word', 100, 2200);
+
+            c.rLockCheck = c.createCheckbox('Lock R', false);
+            c.rLockCheck.position(sliderWidth + margin,uiStart);
+            c.rLockCheck.changed(c.rLockCheckValueChanged)
+
+            c.gLockCheck = c.createCheckbox('Lock G', false);
+            c.gLockCheck.position(sliderWidth + margin,uiStart + 40);
+            c.gLockCheck.changed(c.gLockCheckValueChanged)
+
+            c.bLockCheck = c.createCheckbox('Lock B', false);
+            c.bLockCheck.position(sliderWidth + margin,uiStart + 80);
+            c.bLockCheck.changed(c.bLockCheckValueChanged)
 
         }
 
@@ -191,76 +207,118 @@ export default function Template(props) {
             rndB = c.bSlider.value();
         }
 
-        c.draw = () => {
+        c.rLockCheckValueChanged = () => {
             
+            if (c.rLockCheck.checked()){
+                lockR = true;
+            } else {
+                lockR = false;
+            }
+            console.log(lockR)
+        }
 
+        c.gLockCheckValueChanged = () => {
+            
+            if (c.gLockCheck.checked()){
+                lockG = true;
+            } else {
+                lockG = false;
+            }
+            console.log(lockG)
+        }
+
+        c.bLockCheckValueChanged = () => {
+            
+            if (c.bLockCheck.checked()){
+                lockB = true;
+            } else {
+                lockB = false;
+            }
+            console.log(lockB)
+        }
+
+        c.draw = () => {
             if (initialMouseMovement){
                 c.fill(rndR,rndG,rndB)
-            c.strokeWeight(1)
-            let halfWidth = c.width / 2;
-            let halfHeight = c.height / 2;
-            let xOffset = Math.abs(c.mouseX - halfWidth);
-            let yOffset = Math.abs(c.mouseY - halfHeight);
-            let radius = (yOffset + xOffset / 4) / 2 
-            
-            if (radius < 10){
-                radius = 10;
-            }
+                //console.log(rndR + " " + rndG + " " + rndB)
+                c.strokeWeight(1)
+                let halfWidth = c.width / 2;
+                let halfHeight = c.height / 2;
+                let xOffset = Math.abs(c.mouseX - halfWidth);
+                let yOffset = Math.abs(c.mouseY - halfHeight);
+                let radius = (yOffset + xOffset / 4) / 2 
+                
+                if (radius < 10){
+                    radius = 10;
+                }
 
-            c.circle(c.mouseX, c.mouseY, radius);
+                c.circle(c.mouseX, c.mouseY, radius);
             }
             
+        }
+
+        c.touchMoved = () =>{
+            c.mouseMoved();
         }
 
         c.mouseMoved = () => {
             initialMouseMovement = true;
             let speed = 5;
-            if (increaseR){
-                if (rndR < 255){
-                    rndR += speed
+            if (!lockR){
+                if (increaseR){
+                    if (rndR < 255){
+                        rndR += speed
+                    } else {
+                        rndR = 255
+                        increaseR = false;
+                    } 
                 } else {
-                    rndR = 255
-                    increaseR = false;
-                } 
-            } else {
-                if (rndR > 0){
-                    rndR -= speed;
-                } else {
-                    rndR = 0;
-                    increaseR = true;
+                    if (rndR > 0){
+                        rndR -= speed;
+                    } else {
+                        rndR = 0;
+                        increaseR = true;
+                    }
+                }
+            }
+           
+            if (!lockG){
+                if (increaseG){
+                    if (rndG < 255){
+                        rndG += speed
+                    } else {
+                        rndG = 255
+                        increaseG = false;
+                    } 
+                } else{
+                    if (rndG > 0){
+                        rndG -= speed;
+                    } else {
+                        rndG = 0;
+                        increaseG = true;
+                    }
                 }
             }
 
-            if (increaseG){
-                if (rndG < 255){
-                    rndG += speed
-                } else {
-                    rndG = 255
-                    increaseG = false;
-                } 
-            } else{
-                if (rndG > 0){
-                    rndG -= speed;
-                } else {
-                    rndG = 0;
-                    increaseG = true;
+            if (!lockB){
+                if (increaseB){
+                    if (rndB < 255){
+                        rndB += speed
+                    } else {
+                        rndB = 255
+                        increaseB = false;
+                    } 
+                } else{
+                    if (rndB > 0){
+                        rndB -= speed;
+                    } else {
+                        rndB = 0;
+                        increaseB = true;
+                    }
                 }
             }
-            if (increaseB){
-                if (rndB < 255){
-                    rndB += speed
-                } else {
-                    rndB = 255
-                    increaseB = false;
-                } 
-            } else{
-                if (rndB > 0){
-                    rndG -= speed;
-                } else {
-                    rndB = 0;
-                    increaseB = true;
-                }
-            }
+            
+            
 
         }
 
@@ -272,8 +330,8 @@ export default function Template(props) {
             <div className={styles.p5_sketch}>
                 
                 {/* <NextReactP5Wrapper sketch={circles} />; */}
-                <NextReactP5Wrapper sketch={triangles} />;
-                {/* <NextReactP5Wrapper sketch={circleChase} />; */}
+                {/* <NextReactP5Wrapper sketch={triangles} />; */}
+                <NextReactP5Wrapper sketch={circleChase} />
             </div>
         
         
