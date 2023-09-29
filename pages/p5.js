@@ -84,8 +84,7 @@ export default function Template(props) {
             p5.drawTriangle(firstFill, secondFill, initialX, initialY, triangleHeight,triangleWidth);
            
             p5.push();
-            
-            
+           
                         
         }
 
@@ -144,66 +143,139 @@ export default function Template(props) {
     const circleChase = c =>{
         
         let 
-            rndR = 50, 
-            counter = 0,
-            counterThreshold = 100,
-            upOrDown = 1;
+            rndR = 50,
+            rndG = 0, 
+            rndB = 55,
+            increaseR = true,
+            increaseG = false,
+            increaseB = false,
+            initialMouseMovement = false;
+
 
         c.setup = () =>{
-            c.createCanvas(c.windowWidth,c.windowHeight);
+            c.createCanvas(c.windowWidth,0.75 * c.windowHeight);
             c.background(21)
+            let uiStart = 0.80 * c.windowHeight;
+            console.log(uiStart);
+            c.rSlider = c.createSlider(0,255,rndR);
+            c.rSlider.position(10,uiStart);
+            c.rSlider.style('width','250px')
+            c.rSlider.input(c.rValueChanged);
+
+            c.gSlider = c.createSlider(0,255,rndG);
+            c.gSlider.position(10,uiStart + 40);
+            c.gSlider.style('width','250px')
+            c.gSlider.input(c.gValueChanged);
+
+            c.bSlider = c.createSlider(0,255,rndB);
+            c.bSlider.position(10,uiStart + 80);
+            c.bSlider.style('width','250px')
+            c.bSlider.input(c.bValueChanged);
+            c.textSize(25);
+            c.text('word', 100, 1200);
+
+        }
+
+        c.rValueChanged = () =>{
+            rndR = c.rSlider.value();
+        }
+
+        c.gValueChanged = () => {
+            rndG = c.gSlider.value();
+        }
+
+        c.bValueChanged = () => {
+            rndB = c.bSlider.value();
         }
 
         c.draw = () => {
             
-            
-            c.fill(0,rndR * 0.75,rndR * 0.5)
+            c.push();
+            c.rect(10,20,50,50);
+            c.pop();
+
+
+            if (c.initialMouseMovement){
+                c.fill(rndR,rndG,rndB)
             c.strokeWeight(1)
             let halfWidth = c.width / 2;
             let halfHeight = c.height / 2;
             let xOffset = Math.abs(c.mouseX - halfWidth);
             let yOffset = Math.abs(c.mouseY - halfHeight);
             let radius = yOffset + xOffset / 1000
+            if (radius < 10){
+                radius = 10;
+            }
+
             c.circle(c.mouseX, c.mouseY, radius);
+            }
+            
         }
 
         c.mouseMoved = () => {
-            counter++;
-            if (counter > counterThreshold){
-                upOrDown = Math.floor(Math.random() * 2)
-                counter = 0;
-                console.log(upOrDown)
-            }
-            if (upOrDown === 1){
+            c.initialMouseMovement = true;
+            let speed = 5;
+            if (increaseR){
                 if (rndR < 255){
-                    rndR += 2
+                    rndR += speed
                 } else {
                     rndR = 255
-                    upOrDown = 0;
-                }
-                
-            } 
-            if (upOrDown === 0){
+                    increaseR = false;
+                } 
+            } else {
                 if (rndR > 0){
-                    rndR -= 1;
+                    rndR -= speed;
                 } else {
                     rndR = 0;
-                    upOrDown = 1;
+                    increaseR = true;
                 }
-                
             }
+
+            if (increaseG){
+                if (rndG < 255){
+                    rndG += speed
+                } else {
+                    rndG = 255
+                    increaseG = false;
+                } 
+            } else{
+                if (rndG > 0){
+                    rndG -= speed;
+                } else {
+                    rndG = 0;
+                    increaseG = true;
+                }
+            }
+            if (increaseB){
+                if (rndB < 255){
+                    rndB += speed
+                } else {
+                    rndB = 255
+                    increaseB = false;
+                } 
+            } else{
+                if (rndB > 0){
+                    rndG -= speed;
+                } else {
+                    rndB = 0;
+                    increaseB = true;
+                }
+            }
+
         }
+
+
     }
 
     return (
-        <Layout>
+        
             <div className={styles.p5_sketch}>
                 
                 {/* <NextReactP5Wrapper sketch={circles} />; */}
                 {/* <NextReactP5Wrapper sketch={triangles} />; */}
                 <NextReactP5Wrapper sketch={circleChase} />;
             </div>
-        </Layout>
+        
         
         
         )
