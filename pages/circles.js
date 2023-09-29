@@ -159,10 +159,11 @@ export default function Template(props) {
             c.createCanvas(c.windowWidth,0.75 * c.windowHeight);
             c.background(21)
             let uiStart = 0.80 * c.windowHeight;
-            let sliderWidth = c.windowWidth * 0.33;
+            let sliderWidth = c.windowWidth * 0.60;
             let margin = 25;
 
             //console.log(uiStart);
+            //create UI sliders
             c.rSlider = c.createSlider(0,255,rndR);
             c.rSlider.position(10,uiStart);
             c.rSlider.style('width', sliderWidth + 'px')
@@ -176,11 +177,15 @@ export default function Template(props) {
             c.bSlider = c.createSlider(0,255,rndB);
             c.bSlider.position(10,uiStart + 80);
             c.bSlider.style('width', sliderWidth + 'px')
+            //c.bSlider.style('height','100px')
             c.bSlider.input(c.bValueChanged);
-            c.textSize(25);
+            
+            //put a call to action text
+            c.textSize(50);
             c.fill(255)
-            c.text('word', 100, 2200);
+            c.text('move your mouse / touch the screen', 100, c.windowHeight * 0.66);
 
+            //create UI checkboxes
             c.rLockCheck = c.createCheckbox('Lock R', false);
             c.rLockCheck.position(sliderWidth + margin,uiStart);
             c.rLockCheck.changed(c.rLockCheckValueChanged)
@@ -240,7 +245,7 @@ export default function Template(props) {
         c.draw = () => {
             if (initialMouseMovement){
                 c.fill(rndR,rndG,rndB)
-                //console.log(rndR + " " + rndG + " " + rndB)
+                console.log(rndR + " " + rndG + " " + rndB)
                 c.strokeWeight(1)
                 let halfWidth = c.width / 2;
                 let halfHeight = c.height / 2;
@@ -332,6 +337,11 @@ export default function Template(props) {
                 {/* <NextReactP5Wrapper sketch={circles} />; */}
                 {/* <NextReactP5Wrapper sketch={triangles} />; */}
                 <NextReactP5Wrapper sketch={circleChase} />
+                <p>
+                    As you move the mouse / your finger across the screen, I'll draw circles behind you in colors that change as you move.
+                    <br/>
+                    Try locking one of the color channels (R,G,B) and see what happens!
+                </p>
             </div>
         
         
