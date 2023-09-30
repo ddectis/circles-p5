@@ -1,5 +1,5 @@
 import Layout from '../components/layout';
-import styles from '../styles/lesson-template.module.css';
+import styles from '../styles/circles.module.css';
 import React from "react";
 
 import { NextReactP5Wrapper } from "@p5-wrapper/next";
@@ -153,12 +153,15 @@ export default function Template(props) {
             lockR = false,
             lockG = false,
             lockB = false,
-            draw = false;
+            draw = false; //mouse click
 
 
         c.setup = () =>{
-            c.createCanvas(c.windowWidth,0.75 * c.windowHeight);
+            c.createCanvas(c.windowWidth, 0.66 * c.windowHeight);
             c.background(21)
+            let redControls = c.select("#red-controls")
+            let greenControls = c.select("#green-controls")
+            let blueControls = c.select("#blue-controls")
             let uiStart = 0.80 * c.windowHeight;
             let sliderWidth = c.windowWidth * 0.60;
             let margin = 25;
@@ -166,37 +169,41 @@ export default function Template(props) {
             //console.log(uiStart);
             //create UI sliders
             c.rSlider = c.createSlider(0,255,rndR);
-            c.rSlider.position(10,uiStart);
-            c.rSlider.style('width', sliderWidth + 'px')
+            c.rSlider.parent(redControls)
+            
             c.rSlider.input(c.rValueChanged);
 
             c.gSlider = c.createSlider(0,255,rndG);
-            c.gSlider.position(10,uiStart + 40);
-            c.gSlider.style('width', sliderWidth + 'px')
+            c.gSlider.parent(greenControls)
+            
             c.gSlider.input(c.gValueChanged);
 
             c.bSlider = c.createSlider(0,255,rndB);
-            c.bSlider.position(10,uiStart + 80);
-            c.bSlider.style('width', sliderWidth + 'px')
+            c.bSlider.parent(blueControls)
+            
             //c.bSlider.style('height','100px')
             c.bSlider.input(c.bValueChanged);
             
             //put a call to action text
             c.textSize(50);
             c.fill(255)
-            c.text('move your mouse / touch the screen', 100, c.windowHeight * 0.66);
+            let angle = c.radians(-55);
+            c.rotate(angle)
+            c.text('touch', -205, c.windowHeight * 0.40);
+            
+            
 
             //create UI checkboxes
-            c.rLockCheck = c.createCheckbox('Lock R', false);
-            c.rLockCheck.position(sliderWidth + margin,uiStart);
+            c.rLockCheck = c.createCheckbox('Lock Red', false);
+            c.rLockCheck.parent(redControls);
             c.rLockCheck.changed(c.rLockCheckValueChanged)
 
-            c.gLockCheck = c.createCheckbox('Lock G', false);
-            c.gLockCheck.position(sliderWidth + margin,uiStart + 40);
+            c.gLockCheck = c.createCheckbox('Lock Green', false);
+            c.gLockCheck.parent(greenControls);
             c.gLockCheck.changed(c.gLockCheckValueChanged)
 
-            c.bLockCheck = c.createCheckbox('Lock B', false);
-            c.bLockCheck.position(sliderWidth + margin,uiStart + 80);
+            c.bLockCheck = c.createCheckbox('Lock Blue', false);
+            c.bLockCheck.parent(blueControls);
             c.bLockCheck.changed(c.bLockCheckValueChanged)
 
         }
@@ -244,7 +251,8 @@ export default function Template(props) {
         }
 
         c.draw = () => {
-            if (draw){
+            let mouseAboveBottomOfCanvas = c.height - c.mouseY
+            if (draw && mouseAboveBottomOfCanvas > 0){
                 c.fill(rndR,rndG,rndB)
                 console.log(rndR + " " + rndG + " " + rndB)
                 c.strokeWeight(1)
@@ -343,11 +351,17 @@ export default function Template(props) {
                 {/* <NextReactP5Wrapper sketch={circles} />; */}
                 {/* <NextReactP5Wrapper sketch={triangles} />; */}
                 <NextReactP5Wrapper sketch={circleChase} />
-                <p>
-                    As you move the mouse / your finger across the screen, I'll draw circles behind you in colors that change as you move.
-                    <br/>
-                    Try locking one of the color channels (R,G,B) and see what happens!
-                </p>
+                <div id="control-panel" className={styles.control_container}>
+                    <p>
+                        As you move the mouse / your finger across the screen, I'll draw circles behind you in colors that change as you move.
+                        <br/>
+                        Try locking one of the color channels (R,G,B) and see what happens!
+                    </p>
+                    <div id="red-controls" className={styles.controls}></div>
+                    <div id="green-controls" className={styles.controls}></div>
+                    <div id="blue-controls" className={styles.controls}></div>
+                </div>
+                
             </div>
         
         
