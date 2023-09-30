@@ -152,7 +152,8 @@ export default function Template(props) {
             initialMouseMovement = false,
             lockR = false,
             lockG = false,
-            lockB = false;
+            lockB = false,
+            draw = false;
 
 
         c.setup = () =>{
@@ -243,7 +244,7 @@ export default function Template(props) {
         }
 
         c.draw = () => {
-            if (initialMouseMovement){
+            if (draw){
                 c.fill(rndR,rndG,rndB)
                 console.log(rndR + " " + rndG + " " + rndB)
                 c.strokeWeight(1)
@@ -262,7 +263,15 @@ export default function Template(props) {
             
         }
 
-        c.touchMoved = () =>{
+        c.mousePressed = () => {
+            draw = true;
+        }
+
+        c.mouseReleased = () =>{
+            draw = false;
+        }
+
+        c.touchMoved = () => {
             c.mouseMoved();
         }
 
@@ -322,9 +331,6 @@ export default function Template(props) {
                     }
                 }
             }
-            
-            
-
         }
 
 
