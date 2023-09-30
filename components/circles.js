@@ -3,7 +3,7 @@ import React from "react";
 
 import { NextReactP5Wrapper } from "@p5-wrapper/next";
 
-export default function Template(props) {
+export default function Circles(props) {
 
     const circles = p5 => {
         
