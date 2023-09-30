@@ -30,8 +30,10 @@
 }
 
 .control_container input[type="range"]::-moz-range-track {
-    background: #053a5f;
-    height: 0.5rem;
+    border: 1px solid black;
+    position: absolute;
+    bottom: 0;
+    background: rgb(200, 211, 200);
 }
 
 .control_container input[type=range]::moz-range-thumb{

@@ -1,4 +1,3 @@
-import Layout from '../components/layout';
 import styles from '../styles/circles.module.css';
 import React from "react";
 
