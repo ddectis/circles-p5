@@ -16,6 +16,7 @@ body {
     Helvetica Neue,
     sans-serif;
     background-color: rgb(200, 211, 200);
+    overflow:hidden;
 }
 
 a {

@@ -142,28 +142,27 @@ export default function Circles(props) {
     const circleChase = c =>{
         
         let 
+            circleCount = 0,
+            introHidden = false,
             rndR = 50,
             rndG = 0, 
             rndB = 55,
             increaseR = true,
             increaseG = false,
             increaseB = false,
-            initialMouseMovement = false,
             lockR = false,
             lockG = false,
             lockB = false,
-            draw = false; //mouse click
+            draw = false; //draw on mouse click
 
 
         c.setup = () =>{
-            c.createCanvas(c.windowWidth, 0.66 * c.windowHeight);
+            c.createCanvas(c.windowWidth,c.windowHeight);
             c.background(21)
             let redControls = c.select("#red-controls")
             let greenControls = c.select("#green-controls")
             let blueControls = c.select("#blue-controls")
-            let uiStart = 0.80 * c.windowHeight;
-            let sliderWidth = c.windowWidth * 0.60;
-            let margin = 25;
+            
 
             //console.log(uiStart);
             //create UI sliders
@@ -180,17 +179,7 @@ export default function Circles(props) {
             c.bSlider = c.createSlider(0,255,rndB);
             c.bSlider.parent(blueControls)
             
-            //c.bSlider.style('height','100px')
-            c.bSlider.input(c.bValueChanged);
-            
-            //put a call to action text
-            c.textSize(50);
-            c.fill(255)
-            let angle = c.radians(-55);
-            c.rotate(angle)
-            c.text('touch', -205, c.windowHeight * 0.40);
-            
-            
+            c.bSlider.input(c.bValueChanged);           
 
             //create UI checkboxes
             c.rLockCheck = c.createCheckbox('Lock Red', false);
@@ -266,8 +255,19 @@ export default function Circles(props) {
                 }
 
                 c.circle(c.mouseX, c.mouseY, radius);
+                circleCount++;
+                if (circleCount > 25 && !introHidden){
+                    c.hideIntro();
+                }
             }
             
+        }
+
+        c.hideIntro = () => {
+            console.log("check");
+            const introPanel = document.getElementById('intro-panel');
+            introPanel.classList.add(`${styles.hide}`);
+            introHidden = true;
         }
 
         c.mousePressed = () => {
@@ -283,8 +283,8 @@ export default function Circles(props) {
         }
 
         c.mouseMoved = () => {
-            initialMouseMovement = true;
             let speed = 5;
+            
             if (!lockR){
                 if (increaseR){
                     if (rndR < 255){
@@ -343,22 +343,31 @@ export default function Circles(props) {
 
     }
 
+    const optionsClick = () =>{
+        const controlPanel = document.getElementById('control-panel')
+        controlPanel.classList.toggle(`${styles.hide_options}`)
+    }
+
     return (
         
-            <div className={styles.p5_sketch}>
+            <div className={styles.sketch_container}>
                 
                 {/* <NextReactP5Wrapper sketch={circles} />; */}
                 {/* <NextReactP5Wrapper sketch={triangles} />; */}
                 <NextReactP5Wrapper sketch={circleChase} />
-                <div id="control-panel" className={styles.control_container}>
-                    <p>
-                        As you move the mouse / your finger across the screen, I'll draw circles behind you in colors that change as you move.
-                        <br/>
-                        Try locking one of the color channels (R,G,B) and see what happens!
-                    </p>
+                <div id="control-panel" className={`${styles.control_container}`}>
+                    <button className={styles.options_button} onClick={optionsClick}>Options</button>
+                    <div className={styles.controls}>
+                            Try locking one of the color channels (R,G,B) and see what happens!
+                    </div>
+                  
                     <div id="red-controls" className={styles.controls}></div>
                     <div id="green-controls" className={styles.controls}></div>
                     <div id="blue-controls" className={styles.controls}></div>
+                </div>
+                <div className={styles.intro} id='intro-panel'>
+                    <h2 className={styles.intro_title}><b>Circles!</b></h2>
+                    As you move the mouse or slide your finger across the screen, I'll draw circles behind you in colors that change as you move.
                 </div>
                 
             </div>
