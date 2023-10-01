@@ -1,1 +1,1 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+I did this project as part of my efforts to become familiar with p5.js. As you drag the mouse or your finger across the screen, I draw circles at your mouse position every frame. The colors evolve over time. The user has control over the color mixture and can lock the R, G, and B channels in place. The code feels a little clunky, but that's how it always goes the first time around. I'm really happy with how this came out; I learned a lot, and I made something interesting along the way.
