@@ -20,7 +20,7 @@
 }
 
 .control_container input[type=range]::-webkit-slider-runnable-track{
-    background: #053a5f;
+    background: #d7d7d7;
     height: 0.5rem;
     border-radius: 5px;
 }
@@ -84,6 +84,18 @@
     padding-inline: 55px;
     padding-block: 10px;
     border-radius: 5px;;
+}
+
+.red_controls{
+    background: rgb(255, 135, 135);
+}
+
+.green_controls{
+    background: rgb(135, 255, 135);
+}
+
+.blue_controls{
+    background: rgb(135, 135, 255);
 }
 
 .hide_options{

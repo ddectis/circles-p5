@@ -5,6 +5,21 @@ import { NextReactP5Wrapper } from "@p5-wrapper/next";
 
 export default function Circles(props) {
 
+    let 
+            circleCount = 0,
+            introHidden = false,
+            rndR = 50,
+            rndG = 0, 
+            rndB = 55,
+            increaseR = true,
+            increaseG = false,
+            increaseB = false,
+            lockR = false,
+            lockG = false,
+            lockB = false,
+            draw = false; //draw on mouse click
+
+    
     const circles = p5 => {
         
         p5.setup = () => {
@@ -141,25 +156,14 @@ export default function Circles(props) {
 
     const circleChase = c =>{
         
-        let 
-            circleCount = 0,
-            introHidden = false,
-            rndR = 50,
-            rndG = 0, 
-            rndB = 55,
-            increaseR = true,
-            increaseG = false,
-            increaseB = false,
-            lockR = false,
-            lockG = false,
-            lockB = false,
-            draw = false; //draw on mouse click
-
+        
 
         c.setup = () =>{
-            c.createCanvas(c.windowWidth,c.windowHeight);
+            let canvas = c.createCanvas(c.windowWidth,0.66 * c.windowHeight);
+            canvas.mouseClicked(c.canvasClicked)
             c.background(21)
-            let redControls = c.select("#red-controls")
+            let redControls = c.select('#red-controls')
+            console.log(redControls);
             let greenControls = c.select("#green-controls")
             let blueControls = c.select("#blue-controls")
             
@@ -194,6 +198,10 @@ export default function Circles(props) {
             c.bLockCheck.parent(blueControls);
             c.bLockCheck.changed(c.bLockCheckValueChanged)
 
+        }
+
+        c.canvasClicked = () =>{
+            console.log("yes");
         }
 
         c.rValueChanged = () =>{
@@ -253,12 +261,20 @@ export default function Circles(props) {
                 if (radius < 10){
                     radius = 10;
                 }
-
+                
                 c.circle(c.mouseX, c.mouseY, radius);
                 circleCount++;
                 if (circleCount > 25 && !introHidden){
                     c.hideIntro();
                 }
+                
+                c.fill(rndR,0,0);
+                c.rect(0,0,15,50)
+                c.fill(0,rndG,0);
+                c.rect(15,0,15,50)
+                c.fill(0,0,rndB);
+                c.rect(30,0,15,50)
+
             }
             
         }
@@ -361,9 +377,9 @@ export default function Circles(props) {
                             Try locking one of the color channels (R,G,B) and see what happens!
                     </div>
                   
-                    <div id="red-controls" className={styles.controls}></div>
-                    <div id="green-controls" className={styles.controls}></div>
-                    <div id="blue-controls" className={styles.controls}></div>
+                    <div id="red-controls" className={`${styles.controls} ${styles.red_controls}`}></div>
+                    <div id="green-controls" className={`${styles.controls} ${styles.green_controls}`}></div>
+                    <div id="blue-controls" className={`${styles.controls} ${styles.blue_controls}`}></div>
                 </div>
                 <div className={styles.intro} id='intro-panel'>
                     <h2 className={styles.intro_title}><b>Circles!</b></h2>
