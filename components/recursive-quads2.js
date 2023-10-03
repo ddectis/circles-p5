@@ -1,22 +1,21 @@
 import styles from '../styles/recursive-quads.module.css';
-import React, {useEffect} from "react";
+import React from "react";
 
 import { NextReactP5Wrapper } from "@p5-wrapper/next";
 
-function recursiveSketch(r){
-    
-}
 
-export default function RecursiveQuads(props) {
+export default function RecursiveQuads2(props) {
 
-    useEffect(() =>{
-        
-    })
     
     const recursive = r =>{
         
-        let level = 12;
+        let level = 50; //define the target  level of recurision
+        let colorModifier = 255 / level; //the idea here is to make the max generated color figure in the recursion bit fit within the 0-255 color scale
+        let opacity = 500 / level;
+        let xMovement = r.windowWidth / level; //based on the level of recursion and the size of the window, determine the step size to move each recursive rect
+        let yMovement = r.windowHeight / level;
         
+        //put coordinates at the corners of the window
         let x1 = 0
         let y1 = r.windowHeight
         let x2 = 0;
@@ -28,7 +27,7 @@ export default function RecursiveQuads(props) {
 
         r.setup = () => {
             r.createCanvas(r.windowWidth, r.windowHeight)
-            r.background(21);
+            r.background(25);
             r.slider = r.createSlider(0,255,100,1);
             const sliderParent =  r.select('#control-panel');
             r.slider.parent(sliderParent);
@@ -41,22 +40,21 @@ export default function RecursiveQuads(props) {
         }
         
         r.drawQuad = (x1,y1,x2,y2,x3,y3,x4,y4,level) => {
-            const color = (150 * level) / 7;
+            const color = level * colorModifier;
             console.log(color);
-            r.fill(50,color,color);
+            r.fill(0,170,color,opacity);
             r.quad(x1,y1,x2,y2,x3,y3,x4,y4)
             if (level > 1){
                 level -= 1;
-                let factor = 2;
-                let midX1 = (x1 + x2) / factor;
-                let midY1 = (y1 + y2) / factor;
-                let midX2 = (x2 + x3) / factor;
-                let midY2 = (y2 + y3) / factor;
-                let midX3 = (x3 + x4) / factor;
-                let midY3 = (y3 + y4) / factor;
-                let midX4 = (x1 + x4) / factor;
-                let midY4 = (y1 + y4) / factor;
-                r.drawQuad(midX1,midY1,midX2,midY2,midX3,midY3,midX4,midY4,level);
+                let nextX1 = x1;
+                let nextY1 = y1 - yMovement;
+                let nextX2 = x2 + xMovement;
+                let nextY2 = y2;
+                let nextX3 = x3;
+                let nextY3 = y3 + yMovement;
+                let nextX4 = x4 - xMovement;
+                let nextY4 = y4;
+                r.drawQuad(nextX1,nextY1,nextX2,nextY2,nextX3,nextY3,nextX4,nextY4,level);
             }
         }
 

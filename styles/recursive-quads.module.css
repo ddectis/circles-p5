@@ -1,0 +1,9 @@
+.control_panel{
+    position: absolute;
+    top: -23%;
+    background: #212121;
+    color: #ededed;
+    padding: 25px;
+    border-radius: 10px;
+    left: 5%;
+}
