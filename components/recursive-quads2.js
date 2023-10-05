@@ -5,15 +5,14 @@ import { NextReactP5Wrapper } from "@p5-wrapper/next";
 
 
 export default function RecursiveQuads2(props) {
-
     
     const recursive = r =>{
         
-        let level = 50; //define the target  level of recurision
+        let level = 5; //define the target  level of recurision
         let colorModifier = 255 / level; //the idea here is to make the max generated color figure in the recursion bit fit within the 0-255 color scale
-        let opacity = 500 / level;
-        let xMovement = r.windowWidth / level; //based on the level of recursion and the size of the window, determine the step size to move each recursive rect
-        let yMovement = r.windowHeight / level;
+        let opacity = 1000 / level;
+        let xMovement = r.windowWidth / (level); //based on the level of recursion and the size of the window, determine the step size to move each recursive rect
+        let yMovement = r.windowHeight / (level);
         
         //put coordinates at the corners of the window
         let x1 = 0
